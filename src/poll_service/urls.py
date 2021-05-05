@@ -3,14 +3,16 @@ from django.urls import path, include
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from rest_framework import routers
 
-from api_app.views import PollListViewSet
+from api_app.views.polls import PollsViewSet
+from api_app.views.pass_poll import PassPollViewSet
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 ]
 
 router = routers.DefaultRouter()
-router.register(r'polls', PollListViewSet)
+router.register(r'polls', PollsViewSet, basename='polls')
+router.register(r'pass_poll', PassPollViewSet, basename='pass_poll')
 
 # rest api
 urlpatterns += [
