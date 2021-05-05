@@ -1,0 +1,10 @@
+version: "3.7"
+
+services:
+  poll-service-api:
+    build:
+      context: ./
+      dockerfile: ./DockerfileDev
+    volumes:
+      - ./src:/app
+    env_file: .env
