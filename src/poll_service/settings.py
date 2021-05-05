@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 
+import django12factor
+
+d12f = django12factor.factorise()
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -20,12 +25,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '+xi_@yuxm!x2=*6g90)fu8)$m&_&!#3_s@=7*v+97xxn+_l17-'
+SECRET_KEY = d12f['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = d12f['DEBUG']
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = d12f['ALLOWED_HOSTS']
 
 
 # Application definition
@@ -73,12 +78,7 @@ WSGI_APPLICATION = 'poll_service.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+DATABASES = d12f['DATABASES']
 
 
 # Password validation
@@ -118,3 +118,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+LOGGING = d12f['LOGGING']
+CACHES = d12f['CACHES']
