@@ -1,14 +1,10 @@
-from django.contrib.auth.models import User
-from rest_framework import serializers, viewsets
+from rest_framework import mixins
+from rest_framework import viewsets
+
+from api_app.models import PollModel
+from api_app.serialisers import PollSerializer
 
 
-# Serializers define the API representation.
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = User
-        fields = ['url', 'username', 'email', 'is_staff']
-
-# ViewSets define the view behavior.
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+class PollListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    queryset = PollModel.objects.all()
+    serializer_class = PollSerializer
